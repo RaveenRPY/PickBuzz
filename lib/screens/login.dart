@@ -16,13 +16,8 @@ class loginPage extends StatefulWidget {
   State<loginPage> createState() => _loginPageState();
 }
 
+// ignore: camel_case_types
 class _loginPageState extends State<loginPage> {
-  void _incrementCounter() {
-    setState(
-      () {},
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -37,15 +32,18 @@ class _loginPageState extends State<loginPage> {
         overlays: [SystemUiOverlay.top]);
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 5, 90, 57),
       body: Stack(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            foregroundDecoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("lib/assets/main/BG2.jpg"),
-                fit: BoxFit.fill,
+          Positioned.fill(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("lib/assets/main/BG2.jpg"),
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),
@@ -113,105 +111,109 @@ class _loginPageState extends State<loginPage> {
             ),
           ),
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Add some spacing between the GlassmorphicFlexContainer and the "Sign In" text
-                  const // Add spacing between the "Sign In" text and other content
-                  // Add your login form widget or content here
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Add some spacing between the GlassmorphicFlexContainer and the "Sign In" text
+                      const // Add spacing between the "Sign In" text and other content
+                      // Add your login form widget or content here
 
-                  SignInForm(),
+                      SignInForm(),
 
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 30.0, left: 20, right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          child: const Icon(
-                            IonIcons.logo_google,
-                            size: 35,
-                            color: Color.fromARGB(220, 255, 255, 255),
-                          ),
-                          onTapDown: (details) {
-                            // ignore: avoid_print
-                            print("Pressed Google");
-                          },
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 30.0, left: 20, right: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              child: const Icon(
+                                IonIcons.logo_google,
+                                size: 35,
+                                color: Color.fromARGB(220, 255, 255, 255),
+                              ),
+                              onTapDown: (details) {
+                                // ignore: avoid_print
+                                print("Pressed Google");
+                              },
+                            ),
+                            GestureDetector(
+                              child: const Icon(
+                                IonIcons.logo_facebook,
+                                size: 35,
+                                color: Color.fromARGB(220, 255, 255, 255),
+                              ),
+                              onTapDown: (details) {
+                                // ignore: avoid_print
+                                print("Pressed Google");
+                              },
+                            ),
+                            GestureDetector(
+                              child: const Icon(
+                                IonIcons.logo_linkedin,
+                                size: 35,
+                                color: Color.fromARGB(220, 255, 255, 255),
+                              ),
+                              onTapDown: (details) {
+                                // ignore: avoid_print
+                                print("Pressed Google");
+                              },
+                            ),
+                          ],
                         ),
-                        GestureDetector(
-                          child: const Icon(
-                            IonIcons.logo_facebook,
-                            size: 35,
-                            color: Color.fromARGB(220, 255, 255, 255),
-                          ),
-                          onTapDown: (details) {
-                            // ignore: avoid_print
-                            print("Pressed Google");
-                          },
-                        ),
-                        GestureDetector(
-                          child: const Icon(
-                            IonIcons.logo_linkedin,
-                            size: 35,
-                            color: Color.fromARGB(220, 255, 255, 255),
-                          ),
-                          onTapDown: (details) {
-                            // ignore: avoid_print
-                            print("Pressed Google");
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
 
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 50),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 50),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                color: Colors.white,
+                                thickness: 1,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Center(
+                        child: Text(
+                          "Don't have an account ?",
+                          style: TextStyle(
                             color: Colors.white,
-                            thickness: 1,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 14,
+                            fontFamily: "Intel",
+                            decoration: TextDecoration.none,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  const Center(
-                    child: Text(
-                      "Don't have an account ?",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200,
-                        fontSize: 14,
-                        fontFamily: "Intel",
-                        decoration: TextDecoration.none,
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: const TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {},
-                      child: const Text(
-                        "Create an Account",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20,
-                          fontFamily: "Intel",
-                          decoration: TextDecoration.none,
+                      Center(
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            "Create an Account",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 20,
+                              fontFamily: "Intel",
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
