@@ -97,6 +97,7 @@ class _StartButtonState extends State<StartButton> {
               style: TextStyle(
                   color: Color.fromARGB(255, 0, 61, 48),
                   fontSize: 18,
+                  //fontFamily: "Futura",
                   fontWeight: FontWeight.w600),
             )
           ],

@@ -16,59 +16,73 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Color.fromARGB(6, 0, 0, 0),
-        systemNavigationBarDividerColor: Colors.transparent,
-      ),
-    );
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-        overlays: [SystemUiOverlay.top]);
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarColor: Color.fromARGB(255, 0, 0, 0),
+    //     statusBarIconBrightness: Brightness.light,
+    //     systemNavigationBarColor: Color.fromARGB(255, 245, 0, 0),
+    //     systemNavigationBarDividerColor: Color.fromARGB(0, 255, 0, 0),
+    //   ),
+    // );
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+    //     overlays: [SystemUiOverlay.top]);
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 5, 90, 57),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("lib/assets/main/BG2.jpg"),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      drawer: Drawer(),
+      appBar: AppBar(
+        toolbarHeight: 70,
+        elevation: 5,
+        title: const Text(
+          "Wijerama, Nugegoda",
+          style: TextStyle(
+            fontFamily: "Poppins",
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
           ),
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color.fromARGB(130, 6, 83, 92),
-                  Colors.transparent,
-                  Colors.transparent,
-                  Color.fromARGB(130, 6, 83, 92),
-                ],
-              ),
-            ),
+        ),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu, color: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        surfaceTintColor: Colors.white,
+        shadowColor: Color.fromARGB(40, 154, 255, 233),
+        centerTitle: true,
+      ),
+      bottomNavigationBar: NavigationBar(
+        surfaceTintColor: Colors.white,
+        elevation: 0,
+        shadowColor: Color.fromARGB(255, 154, 255, 233),
+        onDestinationSelected: (int index) {
+          print('Selected $index');
+        },
+        selectedIndex: 0,
+        destinations: const <NavigationDestination>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            label: '',
           ),
-          Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 50, sigmaY: 100),
-              child: const SizedBox(),
-            ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.engineering),
+            icon: Icon(Icons.engineering_outlined),
+            label: '',
           ),
-          Container(
-            color: const Color.fromARGB(45, 0, 36, 30),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.bookmark),
+            icon: Icon(Icons.bookmark_border),
+            label: '',
           ),
         ],
+      ),
+      body: const Stack(
+        children: [],
       ),
     );
   }

@@ -99,9 +99,10 @@ class _loginPageState extends State<loginPage> {
               elevation: 20,
               centerTitle: true,
               title: const Text(
-                "Log in",
+                "Log In",
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 28,
+                  fontFamily: "Poppins",
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                   decoration: TextDecoration.none,
@@ -188,7 +189,7 @@ class _loginPageState extends State<loginPage> {
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
                             fontSize: 14,
-                            fontFamily: "Intel",
+                            fontFamily: "Poppins",
                             decoration: TextDecoration.none,
                           ),
                         ),
@@ -196,16 +197,16 @@ class _loginPageState extends State<loginPage> {
                       Center(
                         child: TextButton(
                           style: TextButton.styleFrom(
-                            textStyle: const TextStyle(fontSize: 20),
+                            textStyle: const TextStyle(fontSize: 22),
                           ),
                           onPressed: () {},
                           child: const Text(
                             "Create an Account",
                             style: TextStyle(
                               color: Colors.white,
-                              fontWeight: FontWeight.w900,
-                              fontSize: 20,
-                              fontFamily: "Intel",
+                              fontWeight: FontWeight.w700,
+                              fontSize: 22,
+                              fontFamily: "Poppins",
                               decoration: TextDecoration.none,
                             ),
                           ),

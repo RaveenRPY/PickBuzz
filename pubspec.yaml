@@ -84,8 +84,22 @@ flutter:
           weight: 600
     - family: Poppins
       fonts:
-        - asset: lib/assets/Fonts/Poppins-Bold.ttf
+        - asset: lib/assets/Fonts/Poppins-Regular.ttf
+          weight: 300
+        - asset: lib/assets/Fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: lib/assets/Fonts/Poppins-SemiBold.ttf
           weight: 700
+        - asset: lib/assets/Fonts/Poppins-Bold.ttf
+          weight: 900
+    - family: Futura
+      fonts:
+        - asset: lib/assets/Fonts/Futura Book font.ttf
+          weight: 300
+        - asset: lib/assets/Fonts/futura medium bt.ttf
+          weight: 600
+        - asset: lib/assets/Fonts/futur.ttf
+          weight: 900
   # fonts:
   #   - family: Schyler
   #     fonts:

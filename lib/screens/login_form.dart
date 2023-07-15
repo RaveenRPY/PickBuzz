@@ -68,7 +68,7 @@ class _SignInFormState extends State<SignInForm> {
                   context,
                   PageTransition(
                     curve: Curves.linear,
-                    type: PageTransitionType.topToBottom,
+                    type: PageTransitionType.rightToLeftWithFade,
                     child: HomePage(
                       title: '',
                     ),
@@ -113,8 +113,8 @@ class _SignInFormState extends State<SignInForm> {
                       "Email",
                       style: TextStyle(
                         fontSize: 18,
-                        fontFamily: "Intel",
-                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
                         color: Colors.white,
                         decoration: TextDecoration.none,
                       ),
@@ -138,6 +138,8 @@ class _SignInFormState extends State<SignInForm> {
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           labelStyle: const TextStyle(
                             color: Color.fromARGB(155, 0, 0, 0),
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w200,
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -176,8 +178,8 @@ class _SignInFormState extends State<SignInForm> {
                       "Password",
                       style: TextStyle(
                         fontSize: 18,
-                        fontFamily: "Intel",
-                        fontWeight: FontWeight.w600,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
                         color: Color.fromARGB(255, 255, 255, 255),
                       ),
                     ),
@@ -209,7 +211,10 @@ class _SignInFormState extends State<SignInForm> {
                             ),
                           ),
                           labelStyle: const TextStyle(
-                              color: Color.fromARGB(155, 0, 54, 29)),
+                            color: Color.fromARGB(155, 0, 54, 29),
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w200,
+                          ),
                           counterText: (' '),
                           prefixIcon: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -252,7 +257,9 @@ class _SignInFormState extends State<SignInForm> {
                                 "Forget password ?",
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontFamily: "Poppins",
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w100,
                                 ),
                               ),
                             )),
@@ -279,9 +286,11 @@ class _SignInFormState extends State<SignInForm> {
                           child: Text(
                             'Log in',
                             style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 22,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       ),

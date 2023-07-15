@@ -145,10 +145,10 @@ class _startPageState extends State<startPage> {
                               textAlign: TextAlign.center,
                               text: const TextSpan(
                                 style: TextStyle(
-                                  fontSize: 33,
+                                  fontSize: 32,
                                   color: Color.fromARGB(255, 0, 20, 15),
                                   fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w600,
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
