@@ -124,29 +124,54 @@ class _loginPageState extends State<loginPage> {
 
                   SignInForm(),
 
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 30.0, left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          child: const Icon(
+                            IonIcons.logo_google,
+                            size: 35,
+                            color: Color.fromARGB(220, 255, 255, 255),
+                          ),
+                          onTapDown: (details) {
+                            // ignore: avoid_print
+                            print("Pressed Google");
+                          },
+                        ),
+                        GestureDetector(
+                          child: const Icon(
+                            IonIcons.logo_facebook,
+                            size: 35,
+                            color: Color.fromARGB(220, 255, 255, 255),
+                          ),
+                          onTapDown: (details) {
+                            // ignore: avoid_print
+                            print("Pressed Google");
+                          },
+                        ),
+                        GestureDetector(
+                          child: const Icon(
+                            IonIcons.logo_linkedin,
+                            size: 35,
+                            color: Color.fromARGB(220, 255, 255, 255),
+                          ),
+                          onTapDown: (details) {
+                            // ignore: avoid_print
+                            print("Pressed Google");
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
                   const Padding(
-                    padding: EdgeInsets.only(top: 60.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.0, horizontal: 50),
                     child: Row(
                       children: [
-                        Expanded(
-                          child: Divider(
-                            color: Colors.white,
-                            thickness: 1,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            "OR",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              fontFamily: "Intel",
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                        ),
                         Expanded(
                           child: Divider(
                             color: Colors.white,
@@ -156,56 +181,35 @@ class _loginPageState extends State<loginPage> {
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40, bottom: 30),
-                    child: Center(
-                      child: Text(
-                        "Sign up with Email, Apple or Google",
+                  const Center(
+                    child: Text(
+                      "Don't have an account ?",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w200,
+                        fontSize: 14,
+                        fontFamily: "Intel",
+                        decoration: TextDecoration.none,
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 20),
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        "Create an Account",
                         style: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.w200,
-                          fontSize: 18,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
                           fontFamily: "Intel",
                           decoration: TextDecoration.none,
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        child: Logo(
-                          Logos.gmail,
-                          size: 35,
-                        ),
-                        onTapDown: (details) {
-                          // ignore: avoid_print
-                          print("Pressed Email");
-                        },
-                      ),
-                      GestureDetector(
-                        child: Logo(
-                          Logos.apple,
-                          size: 35,
-                          colorFilter: const ColorFilter.linearToSrgbGamma(),
-                        ),
-                        onTapDown: (details) {
-                          // ignore: avoid_print
-                          print("Pressed Apple");
-                        },
-                      ),
-                      GestureDetector(
-                        child: Logo(
-                          Logos.google,
-                          size: 35,
-                        ),
-                        onTapDown: (details) {
-                          // ignore: avoid_print
-                          print("Pressed Google");
-                        },
-                      ),
-                    ],
                   ),
                 ],
               ),

@@ -113,7 +113,7 @@ class _SignInFormState extends State<SignInForm> {
                       cursorHeight: 18,
                       style: const TextStyle(
                         fontSize: 18,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 0, 39, 27),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -125,7 +125,7 @@ class _SignInFormState extends State<SignInForm> {
                         labelText: "Enter Email",
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         labelStyle: const TextStyle(
-                          color: Color.fromARGB(155, 0, 54, 29),
+                          color: Color.fromARGB(155, 0, 0, 0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -135,12 +135,12 @@ class _SignInFormState extends State<SignInForm> {
                           ),
                         ),
                         filled: true,
-                        fillColor: Color.fromARGB(118, 128, 255, 227),
+                        fillColor: Color.fromARGB(180, 128, 255, 227),
                         prefixIcon: const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Icon(
                             BoxIcons.bx_message_detail,
-                            color: Colors.white60,
+                            color: Color.fromARGB(153, 0, 0, 0),
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -176,7 +176,7 @@ class _SignInFormState extends State<SignInForm> {
                       cursorHeight: 18,
                       style: const TextStyle(
                         fontSize: 18,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 0, 39, 27),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -187,7 +187,7 @@ class _SignInFormState extends State<SignInForm> {
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
                         filled: true,
-                        fillColor: const Color.fromARGB(118, 128, 255, 227),
+                        fillColor: const Color.fromARGB(180, 128, 255, 227),
                         labelText: "Enter Password",
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -203,7 +203,7 @@ class _SignInFormState extends State<SignInForm> {
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Icon(
                             BoxIcons.bx_lock,
-                            color: Colors.white60,
+                            color: Color.fromARGB(153, 0, 0, 0),
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -223,28 +223,56 @@ class _SignInFormState extends State<SignInForm> {
                       ),
                     ),
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          bottom: 25,
-                        ),
-                        child: Text(
-                          "Forgot you password ?",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
+                          padding: const EdgeInsets.only(
+                            bottom: 30,
                           ),
-                        ),
-                      ),
+                          child: GestureDetector(
+                            onTap: () {
+                              print("Forget password ?");
+
+                              // Navigator.pushNamed(context, "write your route");
+                            },
+                            child: const Text(
+                              "Forget password ?",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          )),
                     ],
                   ),
                   Center(
-                    child: SignButton(
-                      color1: const Color(0xff47b5fb),
-                      color2: const Color(0xff57e3eb),
+                    // child: SignButton(
+                    //   color1: const Color(0xff47b5fb),
+                    //   color2: const Color(0xff57e3eb),
+                    //   onPressed: () {},
+                    // ),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        side: const BorderSide(
+                            width: 2,
+                            color: Color.fromARGB(255, 189, 255, 241)),
+                      ),
                       onPressed: () {},
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 100.0, vertical: 14),
+                        child: Text(
+                          'Log in',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ),
                   // Padding(
