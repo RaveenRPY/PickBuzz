@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -13,21 +14,12 @@ class _SearchPageState extends State<SearchPage> {
   String? selectedValue;
   final _formKey = GlobalKey<FormState>();
 
-  final List<String> genderItems = [
-    'Male',
-    'Female',
+  final List<String> towns = [
+    'Colombo',
+    'Kadawatha',
+    'Mirigama',
+    'Kurunegala',
   ];
-
-  List<DropdownMenuItem<String>> get dropdownItems {
-    List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(value: "USA", child: Text("USA")),
-      const DropdownMenuItem(value: "Canada", child: Text("Canada")),
-      const DropdownMenuItem(value: "Brazil", child: Text("Brazil")),
-      const DropdownMenuItem(value: "England", child: Text("England")),
-    ];
-    return menuItems;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,86 +83,204 @@ class _SearchPageState extends State<SearchPage> {
           Form(
             key: _formKey,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 80),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(16),
-                      hintText: 'Enter Your Full Name.',
-                      hintStyle: const TextStyle(fontSize: 14),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const CircleAvatar(
+                          backgroundColor: Color.fromARGB(255, 215, 228, 255),
+                          child: Icon(Iconsax.gps, color: Color(0xff4b83fe))),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        child: DropdownButtonFormField2<String>(
+                          isExpanded: true,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+
+                            // Add more decoration..
+                          ),
+                          hint: const Text(
+                            'Choose start location',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 139, 139, 139),
+                            ),
+                          ),
+                          items: towns
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select gender.';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            //Do something when selected item is changed.
+                          },
+                          onSaved: (value) {
+                            selectedValue = value.toString();
+                          },
+                          buttonStyleData: const ButtonStyleData(
+                            padding: EdgeInsets.only(right: 8),
+                          ),
+                          iconStyleData: const IconStyleData(
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.black45,
+                            ),
+                            iconSize: 24,
+                          ),
+                          dropdownStyleData: DropdownStyleData(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          menuItemStyleData: const MenuItemStyleData(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.07,
+                      )
+                    ],
                   ),
-                  const SizedBox(height: 30),
-                  DropdownButtonFormField2<String>(
-                    isExpanded: true,
-                    decoration: InputDecoration(
-                      // Add Horizontal padding using menuItemStyleData.padding so it matches
-                      // the menu padding when button's width is not specified.
-                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Iconsax.arrow_swap,
+                        size: 30,
+                        color: Color.fromARGB(255, 0, 129, 101),
                       ),
-                      // Add more decoration..
-                    ),
-                    hint: const Text(
-                      'Select Your Gender',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    items: genderItems
-                        .map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please select gender.';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      //Do something when selected item is changed.
-                    },
-                    onSaved: (value) {
-                      selectedValue = value.toString();
-                    },
-                    buttonStyleData: const ButtonStyleData(
-                      padding: EdgeInsets.only(right: 8),
-                    ),
-                    iconStyleData: const IconStyleData(
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.black45,
+                      SizedBox(
+                        width: 12,
                       ),
-                      iconSize: 24,
-                    ),
-                    dropdownStyleData: DropdownStyleData(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                    ),
+                    ],
                   ),
-                  const SizedBox(height: 30),
-                  TextButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                      }
-                    },
-                    child: const Text('Submit Button'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const CircleAvatar(
+                          backgroundColor: Color.fromARGB(255, 255, 224, 230),
+                          child: Icon(Iconsax.location,
+                              color: Color.fromARGB(255, 180, 0, 39))),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        child: DropdownButtonFormField2<String>(
+                          isExpanded: true,
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 16, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+
+                            // Add more decoration..
+                          ),
+                          hint: const Text(
+                            'Choose destination',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 139, 139, 139),
+                            ),
+                          ),
+                          items: towns
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: const TextStyle(
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Please select gender.';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            //Do something when selected item is changed.
+                          },
+                          onSaved: (value) {
+                            selectedValue = value.toString();
+                          },
+                          buttonStyleData: const ButtonStyleData(
+                            padding: EdgeInsets.only(right: 8),
+                          ),
+                          iconStyleData: const IconStyleData(
+                            icon: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.black45,
+                            ),
+                            iconSize: 24,
+                          ),
+                          dropdownStyleData: DropdownStyleData(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          menuItemStyleData: const MenuItemStyleData(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.07,
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.05,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 2,
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                        }
+                      },
+                      child: const Text(
+                        'Search',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
