@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pickbuzz/screens/homeScreen.dart';
+import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:rive/rive.dart';
 import 'package:pickbuzz/button.dart';
 import 'dart:async';

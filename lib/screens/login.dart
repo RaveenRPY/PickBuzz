@@ -75,6 +75,7 @@ class _loginPageState extends State<loginPage> {
           Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
+              scrolledUnderElevation: 20,
               bottom: const PreferredSize(
                 preferredSize: Size.fromHeight(0.5),
                 child: Divider(
@@ -120,10 +121,14 @@ class _loginPageState extends State<loginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // Add some spacing between the GlassmorphicFlexContainer and the "Sign In" text
-                      const // Add spacing between the "Sign In" text and other content
+                      // Add spacing between the "Sign In" text and other content
                       // Add your login form widget or content here
+                      const SizedBox(
+                        width: 200,
+                        height: 50,
+                      ),
 
-                      SignInForm(),
+                      const SignInForm(),
 
                       Padding(
                         padding: const EdgeInsets.only(
@@ -211,6 +216,10 @@ class _loginPageState extends State<loginPage> {
                             ),
                           ),
                         ),
+                      ),
+                      const SizedBox(
+                        width: 200,
+                        height: 50,
                       ),
                     ],
                   ),
