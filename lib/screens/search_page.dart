@@ -1,10 +1,9 @@
-import 'dart:ui';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -13,6 +12,10 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   String? selectedValue;
   final _formKey = GlobalKey<FormState>();
+  // ignore: prefer_typing_uninitialized_variables
+  late var startStop = null;
+  // ignore: prefer_typing_uninitialized_variables
+  late var endStop = null;
 
   final List<String> towns = [
     'Colombo',
@@ -20,6 +23,15 @@ class _SearchPageState extends State<SearchPage> {
     'Mirigama',
     'Kurunegala',
   ];
+
+  void swapSelectedValues() {
+    setState(() {
+      String? temp = startStop;
+      startStop = endStop;
+      endStop = temp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,8 +115,6 @@ class _SearchPageState extends State<SearchPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-
-                            // Add more decoration..
                           ),
                           hint: const Text(
                             'Choose start location',
@@ -130,12 +140,13 @@ class _SearchPageState extends State<SearchPage> {
                               .toList(),
                           validator: (value) {
                             if (value == null) {
-                              return 'Please select gender.';
+                              return 'Please select start location';
                             }
+                            startStop = value;
                             return null;
                           },
                           onChanged: (value) {
-                            //Do something when selected item is changed.
+                            selectedValue = value.toString();
                           },
                           onSaved: (value) {
                             selectedValue = value.toString();
@@ -165,15 +176,20 @@ class _SearchPageState extends State<SearchPage> {
                       )
                     ],
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(
-                        Iconsax.arrow_swap,
-                        size: 30,
-                        color: Color.fromARGB(255, 0, 129, 101),
+                      IconButton(
+                        onPressed: () {
+                          swapSelectedValues();
+                        },
+                        icon: const Icon(
+                          Iconsax.arrow_swap,
+                          size: 26,
+                          color: Color.fromARGB(255, 0, 129, 101),
+                        ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 12,
                       ),
                     ],
@@ -195,8 +211,6 @@ class _SearchPageState extends State<SearchPage> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
-
-                            // Add more decoration..
                           ),
                           hint: const Text(
                             'Choose destination',
@@ -222,13 +236,12 @@ class _SearchPageState extends State<SearchPage> {
                               .toList(),
                           validator: (value) {
                             if (value == null) {
-                              return 'Please select gender.';
+                              return 'Please select destination';
                             }
+                            endStop = value;
                             return null;
                           },
-                          onChanged: (value) {
-                            //Do something when selected item is changed.
-                          },
+                          onChanged: (value) {},
                           onSaved: (value) {
                             selectedValue = value.toString();
                           },
@@ -262,7 +275,7 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.06,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
@@ -270,6 +283,34 @@ class _SearchPageState extends State<SearchPage> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
+
+                          if (startStop == endStop) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                action: SnackBarAction(
+                                  label: 'Got it',
+                                  onPressed: () {
+                                    // Code to execute.
+                                  },
+                                ),
+                                content: const Text(
+                                    'Start Location and Destination given are the same. Please change either of them!'),
+                                duration: const Duration(milliseconds: 50000),
+                                width: MediaQuery.of(context).size.width *
+                                    0.95, // Width of the SnackBar.
+
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal:
+                                      15.0, // Inner padding for SnackBar content.
+                                  vertical: 8,
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                              ),
+                            );
+                          }
                         }
                       },
                       child: const Text(
