@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "916073348632",
+    "project_id": "pickbuzz-ad94c",
+    "storage_bucket": "pickbuzz-ad94c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916073348632:android:7783f713ec9892df22cd6d",
+        "android_client_info": {
+          "package_name": "com.example.pickbuzz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916073348632-7o8sjtqdhd8bmeoulqq3eql208sa5o33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5nKlqjdDgJMe8dVlD9ZJPK-uzJJweBGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916073348632-7o8sjtqdhd8bmeoulqq3eql208sa5o33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

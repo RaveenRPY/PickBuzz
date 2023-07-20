@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:pickbuzz/screens/bus_list.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -13,9 +15,9 @@ class _SearchPageState extends State<SearchPage> {
   String? selectedValue;
   final _formKey = GlobalKey<FormState>();
   // ignore: prefer_typing_uninitialized_variables
-  late var startStop = null;
+  late String? startStop;
   // ignore: prefer_typing_uninitialized_variables
-  late var endStop = null;
+  late String? endStop;
 
   final List<String> towns = [
     'Colombo',
@@ -290,6 +292,10 @@ class _SearchPageState extends State<SearchPage> {
                                 action: SnackBarAction(
                                   label: 'Got it',
                                   onPressed: () {
+                                    setState(() {
+                                      // startStop = null;
+                                      // endStop = null;
+                                    });
                                     // Code to execute.
                                   },
                                 ),
@@ -308,6 +314,14 @@ class _SearchPageState extends State<SearchPage> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5.0),
                                 ),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                child: BusList(),
                               ),
                             );
                           }
