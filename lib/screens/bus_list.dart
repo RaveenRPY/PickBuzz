@@ -3,7 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 class BusList extends StatefulWidget {
-  const BusList({Key? key}) : super(key: key);
+  final String? startStop;
+  final String? endStop;
+  final String? route;
+
+  const BusList(
+      {Key? key,
+      required this.startStop,
+      required this.endStop,
+      required this.route})
+      : super(key: key);
 
   @override
   State<BusList> createState() => _BusListState();
@@ -71,27 +80,31 @@ class _BusListState extends State<BusList> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: SizedBox(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                height: 50,
+                width: 100,
+              ),
+              SizedBox(
                 height: MediaQuery.of(context).size.height * 0.9,
                 width: MediaQuery.of(context).size.width,
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collectionGroup('Bus-MC')
+                      .collectionGroup('${widget.route}')
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return const CircularProgressIndicator();
+                      return const Center(
+                        child: Stack(
+                          children: [
+                            CircularProgressIndicator(),
+                          ],
+                        ),
+                      );
                     }
                     buses = snapshot.data!.docs;
-
-                    print(buses.length);
-
                     return ListView.separated(
                       separatorBuilder: (BuildContext context, int index) =>
                           const Divider(
@@ -99,12 +112,15 @@ class _BusListState extends State<BusList> {
                         endIndent: 20,
                         indent: 20,
                       ),
-                      itemCount: buses.length,
+                      itemCount: buses.length - 1,
                       itemBuilder: (context, index) {
                         final post = buses[index];
+                        // ignore: non_constant_identifier_names
                         String Number = post['Number'];
+                        // ignore: non_constant_identifier_names
                         String STime = post['Time'];
-                        String route = "Colombo -> Kurunegala";
+                        String route =
+                            "${widget.startStop}" " -> " "${widget.endStop}";
                         int option = index + 1;
 
                         return Padding(
@@ -235,8 +251,8 @@ class _BusListState extends State<BusList> {
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

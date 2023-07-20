@@ -18,6 +18,7 @@ class _SearchPageState extends State<SearchPage> {
   late String? startStop;
   // ignore: prefer_typing_uninitialized_variables
   late String? endStop;
+  late String? route;
 
   final List<String> towns = [
     'Colombo',
@@ -317,11 +318,48 @@ class _SearchPageState extends State<SearchPage> {
                               ),
                             );
                           } else {
+                            if (startStop == 'Colombo' &&
+                                endStop == 'Kurunegala') {
+                              setState(() {
+                                route = 'Bus-CK';
+                              });
+                            } else if (startStop == 'Colombo' &&
+                                endStop == 'Mirigama') {
+                              setState(() {
+                                route = 'Bus-CM';
+                              });
+                            } else if (startStop == 'Kadawatha' &&
+                                endStop == 'Kurunegala') {
+                              setState(() {
+                                route = 'Bus-DK';
+                              });
+                            } else if (startStop == 'Kurunegala' &&
+                                endStop == 'Colombo') {
+                              setState(() {
+                                route = 'Bus-KC';
+                              });
+                            } else if (startStop == 'Kurunegala' &&
+                                endStop == 'Kadawatha') {
+                              setState(() {
+                                route = 'Bus-KD';
+                              });
+                            } else {
+                              setState(() {
+                                route = 'Bus-MC';
+                              });
+                            }
+
                             Navigator.push(
                               context,
                               PageTransition(
                                 type: PageTransitionType.fade,
-                                child: BusList(),
+                                child: BusList(
+                                  startStop:
+                                      startStop, // Pass the startStop value to BusList
+                                  endStop:
+                                      endStop, // Pass the endStop value to BusList
+                                  route: route,
+                                ),
                               ),
                             );
                           }
