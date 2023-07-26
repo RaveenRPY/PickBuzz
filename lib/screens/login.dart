@@ -7,10 +7,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/screens/login_form.dart';
 import 'package:pickbuzz/screens/start.dart';
 
+// ignore: camel_case_types
 class loginPage extends StatefulWidget {
-  const loginPage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const loginPage({Key? key}) : super(key: key);
 
   @override
   State<loginPage> createState() => _loginPageState();

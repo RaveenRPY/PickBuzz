@@ -1,22 +1,26 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/button.dart';
 import 'package:pickbuzz/screens/login.dart';
+import 'package:pickbuzz/screens/map_page.dart';
 
+// ignore: camel_case_types
 class startPage extends StatefulWidget {
-  const startPage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const startPage({Key? key}) : super(key: key);
 
   @override
   State<startPage> createState() => _startPageState();
 }
 
+// ignore: camel_case_types
 class _startPageState extends State<startPage> {
-  void _incrementCounter() {
-    setState(() {});
+  @override
+  void initState() {
+    super.initState();
+    Geolocator.requestPermission();
   }
 
   @override
@@ -69,9 +73,6 @@ class _startPageState extends State<startPage> {
                   child: const SizedBox(),
                 ),
               ),
-              // Container(
-              //   color: Color.fromARGB(45, 0, 36, 30),
-              // ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -139,7 +140,7 @@ class _startPageState extends State<startPage> {
                             top: constraints.maxHeight * 0.00,
                             bottom: constraints.maxHeight * 0.01,
                           ),
-                          child: Container(
+                          child: SizedBox(
                             width: constraints.maxWidth * 0.97,
                             child: RichText(
                               textAlign: TextAlign.center,
@@ -164,7 +165,7 @@ class _startPageState extends State<startPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
+                        SizedBox(
                           width: constraints.maxWidth * 0.85,
                           child: RichText(
                             textAlign: TextAlign.center,
@@ -215,7 +216,13 @@ class _startPageState extends State<startPage> {
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeftWithFade,
-                                child: const loginPage(title: "gfg"),
+
+                                child: const loginPage(),
+                                // child: BusMap(
+                                //     route: 'Bus-CK',
+                                //     index: 1,
+                                //     latitude: 6.853526,
+                                //     longitude: 79.205285)
                               ),
                             );
                           },

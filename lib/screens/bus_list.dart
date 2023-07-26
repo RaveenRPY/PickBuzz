@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:pickbuzz/screens/map_page.dart';
 
 class BusList extends StatefulWidget {
   final String? startStop;
@@ -83,7 +85,7 @@ class _BusListState extends State<BusList> {
         child: Center(
           child: Column(
             children: [
-              Container(
+              const SizedBox(
                 height: 50,
                 width: 100,
               ),
@@ -105,6 +107,7 @@ class _BusListState extends State<BusList> {
                       );
                     }
                     buses = snapshot.data!.docs;
+
                     return ListView.separated(
                       separatorBuilder: (BuildContext context, int index) =>
                           const Divider(
@@ -119,9 +122,27 @@ class _BusListState extends State<BusList> {
                         String Number = post['Number'];
                         // ignore: non_constant_identifier_names
                         String STime = post['Time'];
+                        bool track = false;
+
+                        late double latitude;
+                        late double longitude;
+                        late int newIndex;
+                        late String Road;
+
                         String route =
                             "${widget.startStop}" " -> " "${widget.endStop}";
                         int option = index + 1;
+
+                        Map<String, dynamic> map = buses[index].data();
+
+                        if (map.containsKey('GPS')) {
+                          // Replace field by the field you want to check.
+                          track = true;
+                          final gps = post["GPS"] as GeoPoint;
+                          latitude = gps.latitude;
+                          longitude = gps.longitude;
+                          newIndex = index;
+                        }
 
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -141,7 +162,7 @@ class _BusListState extends State<BusList> {
                                 ), //BoxShadow
                                 //BoxShadow
                               ],
-                              color: Color.fromARGB(255, 247, 255, 252),
+                              color: const Color.fromARGB(255, 247, 255, 252),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -178,6 +199,8 @@ class _BusListState extends State<BusList> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 15.0),
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           const Padding(
                                             padding: EdgeInsets.only(
@@ -214,6 +237,61 @@ class _BusListState extends State<BusList> {
                                                         FontWeight.w300),
                                               ),
                                             ],
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 30.0),
+                                            child: SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.22,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.04,
+                                              child: Visibility(
+                                                visible: track,
+                                                child: ElevatedButton(
+                                                  onPressed: () {
+                                                    // ignore: avoid_print
+                                                    print(
+                                                        "$index - ${widget.route} - $latitude - $longitude");
+                                                    Navigator.push(
+                                                      context,
+                                                      PageTransition(
+                                                          type: PageTransitionType
+                                                              .rightToLeftWithFade,
+                                                          child: BusMap(
+                                                              route:
+                                                                  '${widget.route}',
+                                                              index: index,
+                                                              latitude:
+                                                                  latitude,
+                                                              longitude:
+                                                                  longitude)),
+                                                    );
+                                                  },
+                                                  // ignore: sort_child_properties_last
+                                                  child: const Text(
+                                                    'Track',
+                                                    style: TextStyle(
+                                                      fontFamily: "Poppins",
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    backgroundColor:
+                                                        const Color.fromARGB(
+                                                            255, 217, 248, 235),
+                                                    elevation: 2,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
