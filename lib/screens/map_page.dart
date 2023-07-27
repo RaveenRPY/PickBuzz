@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -30,9 +32,37 @@ class BusMapState extends State<BusMap> {
   late Timer _timer;
   LatLng? _userPosition; // Variable to store the user's current position
 
+  late DatabaseReference _dbRef;
+  // ignore: prefer_typing_uninitialized_variables
+  var _lat;
+  // ignore: prefer_typing_uninitialized_variables
+  var _lon;
+
   @override
   void initState() {
     super.initState();
+
+    // Initialize Firebase
+    Firebase.initializeApp();
+
+    // Get a reference to the database
+    _dbRef =
+        FirebaseDatabase.instance.ref(widget.route).child('${widget.index}');
+
+    // Listen for changes in the data
+    _dbRef.child('lat').onValue.listen((event) {
+      setState(() {
+        _lat = event.snapshot.value;
+      });
+    });
+
+    // Listen for changes in the data
+    _dbRef.child('lon').onValue.listen((event) {
+      setState(() {
+        _lon = event.snapshot.value;
+      });
+    });
+
     // Start the timer to update the bus location every 1 second
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       _updateBusLocation();
@@ -174,12 +204,8 @@ class BusMapState extends State<BusMap> {
       var snapshot =
           await FirebaseFirestore.instance.collectionGroup(widget.route).get();
       if (snapshot.docs.isNotEmpty) {
-        var set = snapshot.docs[widget.index];
-        var geo = set['GPS'] as GeoPoint;
-        var lat = geo.latitude;
-        var lon = geo.longitude;
         // Update the marker position
-        _updateMarkerPosition(LatLng(lat, lon));
+        _updateMarkerPosition(LatLng(_lat, _lon));
       }
       // ignore: empty_catches
     } catch (e) {}
@@ -221,6 +247,7 @@ class BusMapState extends State<BusMap> {
   // Function to get and store the user's current location
   void _goToCurrentPosition() async {
     Position? position = await Geolocator.getCurrentPosition();
+    // ignore: unnecessary_null_comparison
     if (position != null) {
       setState(() {
         _userPosition = LatLng(position.latitude, position.longitude);
@@ -262,7 +289,7 @@ class BusMapState extends State<BusMap> {
         ),
       );
 
-      controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 90.0));
+      controller.animateCamera(CameraUpdate.newLatLngBounds(bounds, 110.0));
     }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:page_transition/page_transition.dart';
@@ -23,6 +25,17 @@ class BusList extends StatefulWidget {
 class _BusListState extends State<BusList> {
   // ignore: prefer_typing_uninitialized_variables
   late var buses;
+
+  late DatabaseReference _dbRef;
+  var _lat;
+  var _lon;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize Firebase
+    Firebase.initializeApp();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +139,6 @@ class _BusListState extends State<BusList> {
 
                         late double latitude;
                         late double longitude;
-                        late int newIndex;
-                        late String Road;
 
                         String route =
                             "${widget.startStop}" " -> " "${widget.endStop}";
@@ -141,7 +152,6 @@ class _BusListState extends State<BusList> {
                           final gps = post["GPS"] as GeoPoint;
                           latitude = gps.latitude;
                           longitude = gps.longitude;
-                          newIndex = index;
                         }
 
                         return Padding(
@@ -255,21 +265,45 @@ class _BusListState extends State<BusList> {
                                                 child: ElevatedButton(
                                                   onPressed: () {
                                                     // ignore: avoid_print
-                                                    print(
-                                                        "$index - ${widget.route} - $latitude - $longitude");
+                                                    // Get a reference to the database
+                                                    _dbRef = FirebaseDatabase
+                                                        .instance
+                                                        .ref(widget.route)
+                                                        .child('$index');
+
+                                                    // Listen for changes in the data
+                                                    _dbRef
+                                                        .child('lat')
+                                                        .onValue
+                                                        .listen((event) {
+                                                      setState(() {
+                                                        _lat = event
+                                                            .snapshot.value;
+                                                      });
+                                                    });
+
+                                                    // Listen for changes in the data
+                                                    _dbRef
+                                                        .child('lon')
+                                                        .onValue
+                                                        .listen((event) {
+                                                      setState(() {
+                                                        _lon = event
+                                                            .snapshot.value;
+                                                      });
+                                                    });
                                                     Navigator.push(
                                                       context,
                                                       PageTransition(
-                                                          type: PageTransitionType
-                                                              .rightToLeftWithFade,
-                                                          child: BusMap(
-                                                              route:
-                                                                  '${widget.route}',
-                                                              index: index,
-                                                              latitude:
-                                                                  latitude,
-                                                              longitude:
-                                                                  longitude)),
+                                                        type: PageTransitionType
+                                                            .rightToLeftWithFade,
+                                                        child: BusMap(
+                                                            route:
+                                                                '${widget.route}',
+                                                            index: index,
+                                                            latitude: _lat,
+                                                            longitude: _lon),
+                                                      ),
                                                     );
                                                   },
                                                   // ignore: sort_child_properties_last
