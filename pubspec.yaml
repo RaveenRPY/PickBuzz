@@ -45,6 +45,9 @@ dependencies:
   google_maps_flutter: ^2.4.0
   geolocator: ^9.0.2
   firebase_database: ^10.2.4
+  firebase_auth: ^4.7.2
+  google_sign_in: ^6.1.4
+  glassmorphism: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +76,7 @@ flutter:
     - lib/assets/main/
     - lib/assets/RiveAssets/
     - lib/assets/Home/
+    - lib/assets/Search/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

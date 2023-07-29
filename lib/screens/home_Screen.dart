@@ -1,5 +1,8 @@
+// ignore: file_names
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/screens/search_page.dart';
 
@@ -107,9 +110,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    late String? url = user?.photoURL;
+    late String? name = user?.displayName;
+
+    // ignore: prefer_conditional_assignment
+    if (url == null) {
+      url =
+          "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixlok.com%2Ficons%2Fprofile-icon-svg-free-download-2%2F&psig=AOvVaw3FSeW6YW1QVjx9JKXm2EjD&ust=1690626856875000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKjM4_yZsYADFQAAAAAdAAAAABAE";
+    }
+    name ??= "Friend";
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      drawer: const SafeArea(child: Drawer()),
       appBar: AppBar(
         toolbarHeight: 70,
         elevation: 5,
@@ -124,9 +137,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: const Icon(Icons.menu, color: Color.fromARGB(255, 0, 0, 0)),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
+              icon: const Icon(Icons.logout_rounded,
+                  color: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () async {
+                await GoogleSignIn().signOut();
+                FirebaseAuth.instance.signOut();
               },
             );
           },
@@ -171,23 +186,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Hi, Raveen !",
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontSize: 26,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Text(
-                    "Good Morning",
-                    style: TextStyle(
-                      fontFamily: "Poppins",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 199, 199, 199),
-                    ),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(url),
+                        backgroundColor: Colors.white,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hi, $name !",
+                            style: const TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 26,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                          const Text(
+                            "Welcome",
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 199, 199, 199),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 20.0),
@@ -293,7 +325,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         scale: _scaleAnimation2,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 197, 224, 255),
+                            color: const Color.fromARGB(255, 208, 215, 255),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           width: double.infinity,

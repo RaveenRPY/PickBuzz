@@ -1,10 +1,13 @@
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/button.dart';
 import 'package:pickbuzz/screens/RTB.dart';
+import 'package:pickbuzz/screens/booking_page.dart';
+import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:pickbuzz/screens/login.dart';
 import 'package:pickbuzz/screens/map_page.dart';
 
@@ -217,13 +220,37 @@ class _startPageState extends State<startPage> {
                               context,
                               PageTransition(
                                 type: PageTransitionType.rightToLeftWithFade,
-
-                                child: const loginPage(),
-                                // child: BusMap(
-                                //     route: 'Bus-CK',
-                                //     index: 1,
-                                //     latitude: 6.853526,
-                                //     longitude: 79.205285)
+                                child: StreamBuilder<User?>(
+                                  stream:
+                                      FirebaseAuth.instance.authStateChanges(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                          child: CircularProgressIndicator());
+                                    }
+                                    if (snapshot.hasError) {
+                                      return Text(snapshot.error.toString());
+                                    }
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.active) {
+                                      if (snapshot.data == null) {
+                                        return const loginPage();
+                                      } else {
+                                        return const HomePage(title: "title");
+                                        // return const BookSeats(
+                                        //   index: 1,
+                                        //   number: "NA 1234",
+                                        //   route: "Bus-CK",
+                                        //   trip: "Colombo - Kurunegala",
+                                        //   time: "08.00 AM",
+                                        // );
+                                      }
+                                    }
+                                    return const SizedBox();
+                                  },
+                                ),
                               ),
                             );
                           },

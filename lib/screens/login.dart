@@ -1,11 +1,12 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:pickbuzz/screens/login_form.dart';
-import 'package:pickbuzz/screens/start.dart';
 
 // ignore: camel_case_types
 class loginPage extends StatefulWidget {
@@ -144,6 +145,7 @@ class _loginPageState extends State<loginPage> {
                               onTapDown: (details) {
                                 // ignore: avoid_print
                                 print("Pressed Google");
+                                signInWithGoogle();
                               },
                             ),
                             GestureDetector(
@@ -226,27 +228,27 @@ class _loginPageState extends State<loginPage> {
               ),
             ),
           ),
-          // Column(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: [
-          //     Container(
-          //       height: MediaQuery.of(context).size.height * 0.35,
-          //       width: MediaQuery.of(context).size.width,
-          //       decoration: const BoxDecoration(
-          //         gradient: LinearGradient(
-          //           begin: Alignment.bottomCenter,
-          //           end: Alignment.topCenter,
-          //           colors: [
-          //             Color.fromARGB(200, 3, 59, 63),
-          //             Colors.transparent,
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );
+  }
+
+  signInWithGoogle() async {
+    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    // ignore: avoid_print
+    print(userCredential.user?.displayName);
+
+    if (userCredential.user == null) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const loginPage()));
+    }
   }
 }

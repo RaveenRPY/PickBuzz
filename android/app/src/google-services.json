@@ -15,15 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "916073348632-cj60qbrodjqjp4s0o16dnqafq3gt9k6h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.pickbuzz",
-            "certificate_hash": "a1e9db07124ea3c8e058a225dee4736fb385029a"
-          }
-        },
-        {
-          "client_id": "916073348632-3o4jc67mfr3av147g90eubs3oo4752rd.apps.googleusercontent.com",
+          "client_id": "916073348632-7o8sjtqdhd8bmeoulqq3eql208sa5o33.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -36,7 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "916073348632-3o4jc67mfr3av147g90eubs3oo4752rd.apps.googleusercontent.com",
+              "client_id": "916073348632-7o8sjtqdhd8bmeoulqq3eql208sa5o33.apps.googleusercontent.com",
               "client_type": 3
             },
             {
