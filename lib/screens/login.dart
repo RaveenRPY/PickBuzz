@@ -1,11 +1,9 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:pickbuzz/screens/login_form.dart';
 
 // ignore: camel_case_types

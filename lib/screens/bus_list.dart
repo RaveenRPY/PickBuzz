@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/screens/bus_details.dart';
+import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:pickbuzz/screens/map_page.dart';
+import 'package:pickbuzz/screens/search_page.dart';
 
 class BusList extends StatefulWidget {
   final String startStop;
@@ -70,13 +72,44 @@ class _BusListState extends State<BusList> {
       ),
       bottomNavigationBar: NavigationBar(
         surfaceTintColor: Colors.white,
-        elevation: 0,
+        elevation: 10,
         shadowColor: const Color.fromARGB(255, 154, 255, 233),
         onDestinationSelected: (int index) {
-          // ignore: avoid_print
-          print('Selected $index');
+          if (index == 0) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const HomePage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          }
         },
-        selectedIndex: 2,
+        selectedIndex: 1,
         destinations: const <NavigationDestination>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
@@ -84,13 +117,18 @@ class _BusListState extends State<BusList> {
             label: '',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.manage_search_rounded),
+            selectedIcon: Icon(Icons.search),
             icon: Icon(Icons.search_rounded),
             label: '',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.route_outlined),
-            icon: Icon(Icons.room_outlined),
+            selectedIcon: Icon(Icons.location_on_rounded),
+            icon: Icon(Icons.location_on_outlined),
+            label: '',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.airplane_ticket_rounded),
+            icon: Icon(Icons.airplane_ticket_outlined),
             label: '',
           ),
         ],
@@ -163,12 +201,14 @@ class _BusListState extends State<BusList> {
                                   type: PageTransitionType.rightToLeftWithFade,
                                   child: BusDetails(
                                     number: Number,
-                                    route: route,
+                                    route: widget.route,
                                     trip: route2,
                                     dTime: STime,
                                     track: track,
                                     index: index,
                                     bus: widget.route,
+                                    latitude: _lat,
+                                    longitude: _lon,
                                   ),
                                 ),
                               );

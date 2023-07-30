@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/screens/booking_page.dart';
+import 'package:pickbuzz/screens/home_Screen.dart';
+import 'package:pickbuzz/screens/map_page.dart';
+import 'package:pickbuzz/screens/search_page.dart';
 
 class BusDetails extends StatefulWidget {
   final String number;
@@ -10,6 +13,8 @@ class BusDetails extends StatefulWidget {
   final int index;
   final String bus;
   final String trip;
+  final double latitude;
+  final double longitude;
 
   const BusDetails({
     super.key,
@@ -20,6 +25,8 @@ class BusDetails extends StatefulWidget {
     required this.index,
     required this.bus,
     required this.trip,
+    required this.latitude,
+    required this.longitude,
   });
 
   @override
@@ -70,13 +77,44 @@ class _BusDetailsState extends State<BusDetails> {
       ),
       bottomNavigationBar: NavigationBar(
         surfaceTintColor: Colors.white,
-        elevation: 0,
+        elevation: 10,
         shadowColor: const Color.fromARGB(255, 154, 255, 233),
         onDestinationSelected: (int index) {
-          // ignore: avoid_print
-          print('Selected $index');
+          if (index == 0) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const HomePage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          }
         },
-        selectedIndex: 2,
+        selectedIndex: 1,
         destinations: const <NavigationDestination>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
@@ -84,13 +122,18 @@ class _BusDetailsState extends State<BusDetails> {
             label: '',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.manage_search_rounded),
+            selectedIcon: Icon(Icons.search),
             icon: Icon(Icons.search_rounded),
             label: '',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.route_outlined),
-            icon: Icon(Icons.room_outlined),
+            selectedIcon: Icon(Icons.location_on_rounded),
+            icon: Icon(Icons.location_on_outlined),
+            label: '',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.airplane_ticket_rounded),
+            icon: Icon(Icons.airplane_ticket_outlined),
             label: '',
           ),
         ],
@@ -266,9 +309,8 @@ class _BusDetailsState extends State<BusDetails> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 255, 245, 208),
-                        elevation: 2,
+                        backgroundColor: const Color.fromARGB(255, 141, 0, 206),
+                        elevation: 3,
                       ),
                       child: const Text(
                         "Book Seats",
@@ -276,7 +318,7 @@ class _BusDetailsState extends State<BusDetails> {
                           fontFamily: "Poppins",
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          color: Color.fromARGB(255, 204, 153, 0),
+                          color: Color.fromARGB(255, 255, 255, 255),
                         ),
                       ),
                     ),
@@ -287,10 +329,22 @@ class _BusDetailsState extends State<BusDetails> {
                       height: 50,
                       width: 160,
                       child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeftWithFade,
+                                child: BusMap(
+                                    route: widget.route,
+                                    index: widget.index,
+                                    latitude: widget.latitude,
+                                    longitude: widget.longitude),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 222, 225, 255),
+                                const Color.fromARGB(255, 0, 79, 182),
                             elevation: 3,
                           ),
                           child: const Text(
@@ -299,7 +353,7 @@ class _BusDetailsState extends State<BusDetails> {
                               fontFamily: "Poppins",
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
-                              color: Color.fromARGB(255, 43, 56, 168),
+                              color: Color.fromARGB(255, 255, 255, 255),
                             ),
                           )),
                     ),

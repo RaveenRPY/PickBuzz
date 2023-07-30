@@ -1,15 +1,14 @@
-// ignore: file_names
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:pickbuzz/screens/book_seat_page.dart';
+import 'package:pickbuzz/screens/locate_bus_page.dart';
 import 'package:pickbuzz/screens/search_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -125,54 +124,98 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         toolbarHeight: 70,
-        elevation: 5,
+        elevation: 10,
         title: const Text(
-          "Wijerama, Nugegoda",
+          "PickBuzz",
           style: TextStyle(
             fontFamily: "Poppins",
             fontSize: 20,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
+            fontStyle: FontStyle.italic,
           ),
         ),
         leading: Builder(
           builder: (BuildContext context) {
             return IconButton(
-              icon: const Icon(Icons.logout_rounded,
+              icon: const Icon(Icons.menu_rounded,
                   color: Color.fromARGB(255, 0, 0, 0)),
-              onPressed: () async {
-                await GoogleSignIn().signOut();
-                FirebaseAuth.instance.signOut();
-              },
+              onPressed: () {},
             );
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout_rounded,
+                color: Color.fromARGB(255, 0, 0, 0)),
+            onPressed: () async {
+              await GoogleSignIn().signOut();
+              FirebaseAuth.instance.signOut();
+            },
+          )
+        ],
         surfaceTintColor: Colors.white,
         shadowColor: const Color.fromARGB(40, 154, 255, 233),
         centerTitle: true,
       ),
       bottomNavigationBar: NavigationBar(
         surfaceTintColor: Colors.white,
-        elevation: 0,
+        elevation: 10,
         shadowColor: const Color.fromARGB(255, 154, 255, 233),
         onDestinationSelected: (int index) {
-          // ignore: avoid_print
-          print('Selected $index');
+          if (index == 0) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const HomePage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          } else if (index == 1) {
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const SearchPage(),
+              ),
+            );
+          }
         },
         selectedIndex: 0,
         destinations: const <NavigationDestination>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.person_outline),
+            icon: Icon(Icons.home_outlined),
             label: '',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.engineering),
-            icon: Icon(Icons.engineering_outlined),
+            selectedIcon: Icon(Icons.search),
+            icon: Icon(Icons.search_rounded),
             label: '',
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.bookmark),
-            icon: Icon(Icons.bookmark_border),
+            selectedIcon: Icon(Icons.location_on_rounded),
+            icon: Icon(Icons.location_on_outlined),
+            label: '',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.airplane_ticket_rounded),
+            icon: Icon(Icons.airplane_ticket_outlined),
             label: '',
           ),
         ],
@@ -240,7 +283,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         scale: _scaleAnimation1,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 242, 208, 255),
+                            color: const Color.fromARGB(255, 242, 208, 255),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           width: double.infinity,
@@ -271,7 +314,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                             ),
                                             children: <TextSpan>[
                                               TextSpan(
-                                                text: 'Find your Bus',
+                                                text: 'Search your Bus',
                                               ),
                                             ],
                                           ),
@@ -318,8 +361,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       onTapUp: (_) => _onTapUp2(),
                       onTapCancel: () => _onTapCancel2(),
                       onTap: () {
-                        // Perform your desired action here
-                        // This code will execute when the widget is pressed
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.bottomToTop,
+                            child: const LocatePage(),
+                          ),
+                        );
                       },
                       child: ScaleTransition(
                         scale: _scaleAnimation2,
@@ -403,14 +451,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       onTapUp: (_) => _onTapUp3(),
                       onTapCancel: () => _onTapCancel3(),
                       onTap: () {
-                        // Perform your desired action here
-                        // This code will execute when the widget is pressed
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.bottomToTop,
+                            child: const BookPage(),
+                          ),
+                        );
                       },
                       child: ScaleTransition(
                         scale: _scaleAnimation3,
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 245, 208),
+                            color: const Color.fromARGB(255, 255, 245, 208),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           width: double.infinity,
@@ -560,7 +613,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               height: 130,
                               child: ColorFiltered(
                                 colorFilter: ColorFilter.mode(
-                                    Color.fromARGB(255, 0, 116, 81)
+                                    const Color.fromARGB(255, 0, 116, 81)
                                         .withOpacity(0.2),
                                     BlendMode.srcATop),
                                 child: Image.asset(
@@ -602,7 +655,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               height: 130,
                               child: ColorFiltered(
                                 colorFilter: ColorFilter.mode(
-                                    Color.fromARGB(255, 150, 204, 0)
+                                    const Color.fromARGB(255, 150, 204, 0)
                                         .withOpacity(0.1),
                                     BlendMode.srcATop),
                                 child: Image.asset(
@@ -644,7 +697,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               height: 130,
                               child: ColorFiltered(
                                 colorFilter: ColorFilter.mode(
-                                    Color.fromARGB(255, 97, 97, 97)
+                                    const Color.fromARGB(255, 97, 97, 97)
                                         .withOpacity(0.5),
                                     BlendMode.srcATop),
                                 child: Image.asset(
@@ -716,7 +769,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               width: 200,
                               height: 130,
                               child: Image.asset(
-                                "lib/assets/Home/colombo.webp",
+                                "lib/assets/Search/bus1.webp",
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -726,7 +779,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: const Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Colombo',
+                                    'NK 1126',
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontFamily: "Poppins",
@@ -753,11 +806,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               height: 130,
                               child: ColorFiltered(
                                 colorFilter: ColorFilter.mode(
-                                    Color.fromARGB(255, 0, 116, 81)
+                                    const Color.fromARGB(255, 0, 116, 81)
                                         .withOpacity(0.2),
                                     BlendMode.srcATop),
                                 child: Image.asset(
-                                  "lib/assets/Home/kadawatha.webp",
+                                  "lib/assets/Search/bus2.webp",
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -768,7 +821,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: const Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Kadawatha',
+                                    'NB 4528',
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontFamily: "Poppins",
@@ -790,16 +843,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(15),
                         child: Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 200,
                               height: 130,
                               child: ColorFiltered(
                                 colorFilter: ColorFilter.mode(
-                                    Color.fromARGB(255, 150, 204, 0)
+                                    const Color.fromARGB(255, 150, 204, 0)
                                         .withOpacity(0.1),
                                     BlendMode.srcATop),
                                 child: Image.asset(
-                                  "lib/assets/Home/mirigama.webp",
+                                  "lib/assets/Search/bus3.webp",
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -810,7 +863,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: const Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Mirigama',
+                                    'ND 1646',
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontFamily: "Poppins",
@@ -832,16 +885,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         borderRadius: BorderRadius.circular(15),
                         child: Stack(
                           children: [
-                            Container(
+                            SizedBox(
                               width: 200,
                               height: 130,
                               child: ColorFiltered(
                                 colorFilter: ColorFilter.mode(
-                                    Color.fromARGB(255, 97, 97, 97)
+                                    const Color.fromARGB(255, 97, 97, 97)
                                         .withOpacity(0.5),
                                     BlendMode.srcATop),
                                 child: Image.asset(
-                                  "lib/assets/Home/kurunegala.webp",
+                                  "lib/assets/Search/bus4.webp",
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -852,7 +905,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 child: const Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Kurunegala',
+                                    'NF 9569',
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontFamily: "Poppins",

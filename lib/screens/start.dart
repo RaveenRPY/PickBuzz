@@ -5,11 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/button.dart';
-import 'package:pickbuzz/screens/RTB.dart';
-import 'package:pickbuzz/screens/booking_page.dart';
 import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:pickbuzz/screens/login.dart';
-import 'package:pickbuzz/screens/map_page.dart';
 
 // ignore: camel_case_types
 class startPage extends StatefulWidget {
@@ -238,7 +235,7 @@ class _startPageState extends State<startPage> {
                                       if (snapshot.data == null) {
                                         return const loginPage();
                                       } else {
-                                        return const HomePage(title: "title");
+                                        return const HomePage();
                                         // return const BookSeats(
                                         //   index: 1,
                                         //   number: "NA 1234",

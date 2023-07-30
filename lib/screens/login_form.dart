@@ -3,7 +3,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/screens/home_Screen.dart';
 import 'package:rive/rive.dart';
-import 'package:pickbuzz/button.dart';
 import 'dart:async';
 
 class SignInForm extends StatefulWidget {
@@ -17,6 +16,8 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool isShowLoading = false;
   bool isShowConfetti = false;
   late SMITrigger error;
@@ -53,30 +54,44 @@ class _SignInFormState extends State<SignInForm> {
       const Duration(seconds: 1),
       () {
         if (_formKey.currentState!.validate()) {
-          success.fire();
-          Timer(
-            const Duration(seconds: 2),
-            () {
-              setState(() {
-                isShowLoading = false;
-              });
-              //confetti.fire();
-              // Navigate & hide confetti
-              Timer(const Duration(seconds: 0), () {
-                // Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  PageTransition(
-                    curve: Curves.linear,
-                    type: PageTransitionType.rightToLeftWithFade,
-                    child: HomePage(
-                      title: '',
+          String email = _emailController.text;
+          String password = _passwordController.text;
+
+          if (email == "admin" && password == "1234") {
+            success.fire();
+            Timer(
+              const Duration(seconds: 2),
+              () {
+                setState(() {
+                  isShowLoading = false;
+                });
+                // confetti.fire();
+                // Navigate & hide confetti
+                Timer(const Duration(seconds: 0), () {
+                  // Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      curve: Curves.linear,
+                      type: PageTransitionType.rightToLeftWithFade,
+                      child: const HomePage(),
                     ),
-                  ),
-                );
-              });
-            },
-          );
+                  );
+                });
+              },
+            );
+          } else {
+            error.fire();
+            Timer(
+              const Duration(seconds: 2),
+              () {
+                setState(() {
+                  isShowLoading = false;
+                });
+                reset.fire();
+              },
+            );
+          }
         } else {
           error.fire();
           Timer(
@@ -122,6 +137,7 @@ class _SignInFormState extends State<SignInForm> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 16),
                       child: TextFormField(
+                        controller: _emailController,
                         cursorHeight: 18,
                         style: const TextStyle(
                           fontSize: 18,
@@ -149,7 +165,7 @@ class _SignInFormState extends State<SignInForm> {
                             ),
                           ),
                           filled: true,
-                          fillColor: Color.fromARGB(180, 128, 255, 227),
+                          fillColor: const Color.fromARGB(180, 128, 255, 227),
                           prefixIcon: const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
                             child: Icon(
@@ -186,6 +202,7 @@ class _SignInFormState extends State<SignInForm> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8, bottom: 0),
                       child: TextFormField(
+                        controller: _passwordController,
                         obscureText: true,
                         cursorHeight: 18,
                         style: const TextStyle(
@@ -194,7 +211,7 @@ class _SignInFormState extends State<SignInForm> {
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Enetrerer";
+                            return "Enter Password";
                           }
                           return null;
                         },
@@ -244,25 +261,26 @@ class _SignInFormState extends State<SignInForm> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 30,
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                print("Forget password ?");
-
-                                // Navigator.pushNamed(context, "write your route");
-                              },
-                              child: const Text(
-                                "Forget password ?",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "Poppins",
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w100,
-                                ),
+                          padding: const EdgeInsets.only(
+                            bottom: 30,
+                          ),
+                          child: GestureDetector(
+                            onTap: () {
+                              // ignore: avoid_print
+                              print("Forget password ?");
+                              // Navigator.pushNamed(context, "write your route");
+                            },
+                            child: const Text(
+                              "Forget password ?",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Poppins",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w100,
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                     Center(
@@ -272,8 +290,9 @@ class _SignInFormState extends State<SignInForm> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           side: const BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(255, 189, 255, 241)),
+                            width: 2,
+                            color: Color.fromARGB(255, 189, 255, 241),
+                          ),
                         ),
                         onPressed: () {
                           // Hide the keyboard
@@ -295,10 +314,6 @@ class _SignInFormState extends State<SignInForm> {
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 8, bottom: 24),
-                    //   child:
-                    // ),
                   ],
                 ),
               ),

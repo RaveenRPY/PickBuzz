@@ -27,6 +27,7 @@ class _BookSeatsState extends State<BookSeats> {
   var countSeatRight = 3 * 10;
   var listSeatLeft = [];
   var listSeatRight = [];
+  int count = 0;
 
   @override
   void initState() {
@@ -52,9 +53,11 @@ class _BookSeatsState extends State<BookSeats> {
   }
 
   setSelectedToBook() {
+    int i = 0;
     for (var seat in listSeatLeft) {
       if (seat["isSelected"]) {
         setState(() {
+          i++;
           seat["isBooked"] = true;
           seat["isAvailable"] = false;
           updateSeatFirestore(seat["id"], true, false);
@@ -64,12 +67,16 @@ class _BookSeatsState extends State<BookSeats> {
     for (var seat in listSeatRight) {
       if (seat["isSelected"]) {
         setState(() {
+          i++;
           seat["isBooked"] = true;
           seat["isAvailable"] = false;
           updateSeatFirestore(seat["id"], true, false);
         });
       }
     }
+    setState(() {
+      count = i;
+    });
   }
 
   Future<void> fetchSeatStatus() async {
@@ -315,7 +322,7 @@ class _BookSeatsState extends State<BookSeats> {
                     ),
                     onPressed: () {
                       setSelectedToBook();
-                      // bookReciept(context);
+                      bookReciept(context, count);
                     },
                     child: const Text(
                       "Book Seats",
@@ -444,7 +451,7 @@ class _BookSeatsState extends State<BookSeats> {
     }
   }
 
-  void bookReciept(BuildContext context) {
+  void bookReciept(BuildContext context, int count) {
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -549,9 +556,9 @@ class _BookSeatsState extends State<BookSeats> {
                               child: Column(
                                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  const Text(
-                                    "04 Seats",
-                                    style: TextStyle(
+                                  Text(
+                                    "$count Seats",
+                                    style: const TextStyle(
                                       fontFamily: "Poppins",
                                       fontSize: 25,
                                       fontWeight: FontWeight.w700,
@@ -586,9 +593,9 @@ class _BookSeatsState extends State<BookSeats> {
                                           color: Colors.black,
                                         ),
                                       ),
-                                      const Text(
-                                        "08.00AM",
-                                        style: TextStyle(
+                                      Text(
+                                        widget.time,
+                                        style: const TextStyle(
                                           fontFamily: "Poppins",
                                           fontSize: 22,
                                           fontWeight: FontWeight.w600,
