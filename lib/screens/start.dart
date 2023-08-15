@@ -5,19 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pickbuzz/button.dart';
-import 'package:pickbuzz/screens/home_Screen.dart';
+import 'package:pickbuzz/screens/home_screen.dart';
 import 'package:pickbuzz/screens/login.dart';
 
-// ignore: camel_case_types
-class startPage extends StatefulWidget {
-  const startPage({Key? key}) : super(key: key);
+class StartPage extends StatefulWidget {
+  const StartPage({Key? key}) : super(key: key);
 
   @override
-  State<startPage> createState() => _startPageState();
+  State<StartPage> createState() => _StartPageState();
 }
 
-// ignore: camel_case_types
-class _startPageState extends State<startPage> {
+class _StartPageState extends State<StartPage> {
   @override
   void initState() {
     super.initState();
@@ -180,7 +178,7 @@ class _startPageState extends State<startPage> {
                               children: <TextSpan>[
                                 TextSpan(
                                   text:
-                                      'Find the best way to you destination and ',
+                                      'Find the best way to your destination and ',
                                 ),
                                 TextSpan(
                                   text: 'enjoy ',
@@ -233,16 +231,9 @@ class _startPageState extends State<startPage> {
                                     if (snapshot.connectionState ==
                                         ConnectionState.active) {
                                       if (snapshot.data == null) {
-                                        return const loginPage();
+                                        return const LoginPage();
                                       } else {
                                         return const HomePage();
-                                        // return const BookSeats(
-                                        //   index: 1,
-                                        //   number: "NA 1234",
-                                        //   route: "Bus-CK",
-                                        //   trip: "Colombo - Kurunegala",
-                                        //   time: "08.00 AM",
-                                        // );
                                       }
                                     }
                                     return const SizedBox();

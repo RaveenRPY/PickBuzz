@@ -30,7 +30,9 @@ class _BusListState extends State<BusList> {
   late var buses;
 
   late DatabaseReference _dbRef;
+  // ignore: prefer_typing_uninitialized_variables
   var _lat;
+  // ignore: prefer_typing_uninitialized_variables
   var _lon;
 
   @override
@@ -183,6 +185,7 @@ class _BusListState extends State<BusList> {
                         int option = index + 1;
 
                         Map<String, dynamic> map = buses[index].data();
+                        // ignore: non_constant_identifier_names
                         String? RD = widget.route;
 
                         if (map.containsKey('GPS')) {
@@ -195,6 +198,13 @@ class _BusListState extends State<BusList> {
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
                           child: GestureDetector(
                             onTapUp: (details) {
+                              print(Number +
+                                  " " +
+                                  "${widget.route}" +
+                                  " " +
+                                  route2 +
+                                  " " +
+                                  "$index");
                               Navigator.push(
                                 context,
                                 PageTransition(
@@ -207,8 +217,8 @@ class _BusListState extends State<BusList> {
                                     track: track,
                                     index: index,
                                     bus: widget.route,
-                                    latitude: _lat,
-                                    longitude: _lon,
+                                    latitude: _lat ?? 0.0,
+                                    longitude: _lon ?? 0.0,
                                   ),
                                 ),
                               );

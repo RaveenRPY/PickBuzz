@@ -157,7 +157,7 @@ class _BusDetailsState extends State<BusDetails> {
               ),
             ),
             Text(
-              widget.route,
+              widget.trip,
               style: const TextStyle(
                 fontFamily: "Poppins",
                 fontSize: 20,
@@ -174,7 +174,7 @@ class _BusDetailsState extends State<BusDetails> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Column(
                 children: [
                   Padding(
@@ -289,11 +289,6 @@ class _BusDetailsState extends State<BusDetails> {
                     width: 160,
                     child: ElevatedButton(
                       onPressed: () {
-                        print("${widget.index}"
-                            "-"
-                            "${widget.route}"
-                            "-"
-                            "${widget.bus}");
                         Navigator.push(
                           context,
                           PageTransition(

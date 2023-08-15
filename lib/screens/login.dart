@@ -4,18 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:pickbuzz/screens/login_form.dart';
 
 // ignore: camel_case_types
-class loginPage extends StatefulWidget {
-  const loginPage({Key? key}) : super(key: key);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
-  @override
-  State<loginPage> createState() => _loginPageState();
-}
-
-// ignore: camel_case_types
-class _loginPageState extends State<loginPage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -82,15 +75,11 @@ class _loginPageState extends State<loginPage> {
                   color: Color.fromARGB(66, 255, 255, 255),
                 ),
               ),
-              leading: Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_rounded,
-                        color: Colors.white),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  );
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios_rounded,
+                    color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
               ),
               toolbarHeight: 80,
@@ -118,72 +107,22 @@ class _loginPageState extends State<loginPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Add some spacing between the GlassmorphicFlexContainer and the "Sign In" text
-                      // Add spacing between the "Sign In" text and other content
-                      // Add your login form widget or content here
                       const SizedBox(
                         width: 200,
                         height: 50,
                       ),
-
                       const SignInForm(),
-
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 30.0, left: 20, right: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              child: const Icon(
-                                IonIcons.logo_google,
-                                size: 35,
-                                color: Color.fromARGB(220, 255, 255, 255),
-                              ),
-                              onTapDown: (details) {
-                                // ignore: avoid_print
-                                print("Pressed Google");
-                                signInWithGoogle();
-                              },
-                            ),
-                            GestureDetector(
-                              child: const Icon(
-                                IonIcons.logo_facebook,
-                                size: 35,
-                                color: Color.fromARGB(220, 255, 255, 255),
-                              ),
-                              onTapDown: (details) {
-                                // ignore: avoid_print
-                                print("Pressed Google");
-                              },
-                            ),
-                            GestureDetector(
-                              child: const Icon(
-                                IonIcons.logo_linkedin,
-                                size: 35,
-                                color: Color.fromARGB(220, 255, 255, 255),
-                              ),
-                              onTapDown: (details) {
-                                // ignore: avoid_print
-                                print("Pressed Google");
-                              },
-                            ),
-                          ],
-                        ),
+                      const Padding(
+                        padding:
+                            EdgeInsets.only(top: 30.0, left: 20, right: 20),
+                        child: SocialMediaIcons(),
                       ),
-
                       const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 50),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Divider(
-                                color: Colors.white,
-                                thickness: 1,
-                              ),
-                            ),
-                          ],
+                        child: Divider(
+                          color: Colors.white,
+                          thickness: 1,
                         ),
                       ),
                       const Center(
@@ -203,7 +142,9 @@ class _loginPageState extends State<loginPage> {
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 22),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            // Handle "Create an Account" button tap
+                          },
                           child: const Text(
                             "Create an Account",
                             style: TextStyle(
@@ -230,8 +171,59 @@ class _loginPageState extends State<loginPage> {
       ),
     );
   }
+}
 
-  signInWithGoogle() async {
+class SignInForm extends StatelessWidget {
+  const SignInForm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Your login form content goes here
+    return const SizedBox();
+  }
+}
+
+class SocialMediaIcons extends StatelessWidget {
+  const SocialMediaIcons({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        InkWell(
+          onTap: () => signInWithGoogle(context),
+          child: const Icon(
+            IonIcons.logo_google,
+            size: 35,
+            color: Color.fromARGB(220, 255, 255, 255),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            // Handle Facebook login
+          },
+          child: const Icon(
+            IonIcons.logo_facebook,
+            size: 35,
+            color: Color.fromARGB(220, 255, 255, 255),
+          ),
+        ),
+        InkWell(
+          onTap: () {
+            // Handle LinkedIn login
+          },
+          child: const Icon(
+            IonIcons.logo_linkedin,
+            size: 35,
+            color: Color.fromARGB(220, 255, 255, 255),
+          ),
+        ),
+      ],
+    );
+  }
+
+  signInWithGoogle(BuildContext context) async {
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
@@ -240,13 +232,10 @@ class _loginPageState extends State<loginPage> {
     );
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    // ignore: avoid_print
-    print(userCredential.user?.displayName);
-
     if (userCredential.user == null) {
       // ignore: use_build_context_synchronously
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const loginPage()));
+          .push(MaterialPageRoute(builder: (context) => const LoginPage()));
     }
   }
 }
