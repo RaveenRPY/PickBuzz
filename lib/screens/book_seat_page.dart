@@ -293,7 +293,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       Navigator.push(
                         context,
                         PageTransition(
-                          type: PageTransitionType.bottomToTop,
+                          type: PageTransitionType.fade,
                           child: const BusList(
                             route: "Bus-CK",
                             startStop: "Colombo",
@@ -342,7 +342,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       Navigator.push(
                         context,
                         PageTransition(
-                          type: PageTransitionType.bottomToTop,
+                          type: PageTransitionType.fade,
                           child: const BusList(
                             route: "Bus-CM",
                             startStop: "Colombo",
@@ -391,7 +391,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       Navigator.push(
                         context,
                         PageTransition(
-                          type: PageTransitionType.bottomToTop,
+                          type: PageTransitionType.fade,
                           child: const BusList(
                             route: "Bus-DK",
                             startStop: "Kadawatha",
@@ -440,7 +440,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       Navigator.push(
                         context,
                         PageTransition(
-                          type: PageTransitionType.bottomToTop,
+                          type: PageTransitionType.fade,
                           child: const BusList(
                             route: "Bus-KC",
                             startStop: "Kurunegala",
@@ -489,7 +489,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       Navigator.push(
                         context,
                         PageTransition(
-                          type: PageTransitionType.bottomToTop,
+                          type: PageTransitionType.fade,
                           child: const BusList(
                             route: "Bus-MC",
                             startStop: "Mirigama",
@@ -538,7 +538,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       Navigator.push(
                         context,
                         PageTransition(
-                          type: PageTransitionType.bottomToTop,
+                          type: PageTransitionType.fade,
                           child: const BusList(
                             route: "Bus-KD",
                             startStop: "Kurunegala",
@@ -551,7 +551,7 @@ class _BookPageState extends State<BookPage> with TickerProviderStateMixin {
                       scale: _scaleAnimation6,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 255, 208, 251),
+                          color: const Color.fromARGB(255, 255, 208, 251),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         width: double.infinity,

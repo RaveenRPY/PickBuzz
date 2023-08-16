@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:pickbuzz/screens/login_form.dart';
 
 // ignore: camel_case_types
 class LoginPage extends StatelessWidget {
@@ -170,16 +171,6 @@ class LoginPage extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class SignInForm extends StatelessWidget {
-  const SignInForm({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    // Your login form content goes here
-    return const SizedBox();
   }
 }
 

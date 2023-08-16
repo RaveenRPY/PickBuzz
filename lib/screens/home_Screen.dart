@@ -364,7 +364,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         Navigator.push(
                           context,
                           PageTransition(
-                            type: PageTransitionType.bottomToTop,
+                            type: PageTransitionType.rightToLeftWithFade,
                             child: const LocatePage(),
                           ),
                         );
