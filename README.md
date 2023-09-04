@@ -1,16 +1,11 @@
-# pickbuzz
+# PickBuzz
 
-A new Flutter project.
+The Smartest Bus tracking and seat booking system in Sri Lanka.
 
-## Getting Started
+## Portfolio
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Thumb1-3](https://github.com/RaveenRPY/PickBuzz/assets/122425829/92f72f14-a063-4080-aafc-85c235b12771)
+![Thumb2](https://github.com/RaveenRPY/PickBuzz/assets/122425829/3313c413-af14-4c8c-aebe-3db1631d21c3)
